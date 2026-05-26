@@ -1,0 +1,808 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>রক্তের বন্ধু - মকসুদপুর লাইভ ব্লাড ব্যাংক ও ডোনার ডিরেক্টরি</title>
+    <meta name="description" content="জরুরি রক্তদানের জন্য মকসুদপুরের নির্ভরযোগ্য লাইভ প্ল্যাটফর্ম। রক্তদাতা খুঁজুন এবং সরাসরি কল করুন।">
+    <meta name="keywords" content="রক্তের বন্ধু, ব্লাড ব্যাংক মকসুদপুর, blood donation muksudpur, রক্তদাতা, Gopalganj blood donor">
+    <meta name="author" content="রক্তের বন্ধু নেটওয়ার্ক">
+    
+    <style>
+        :root {
+            --primary: #ef4444;
+            --primary-hover: #dc2626;
+            --secondary: #0f172a;
+            --accent: #10b981;
+            --bg: #f8fafc;
+            --surface: #ffffff;
+            --text: #334155;
+            --text-light: #64748b;
+            --shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.05);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Roboto, sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background-color: #0f172a;
+            color: var(--text);
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
+        }
+
+        .app-container {
+            width: 100%;
+            max-width: 450px;
+            background: var(--bg);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+        }
+
+        #auth-container {
+            padding: 40px 24px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            flex-grow: 1;
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+        }
+
+        .auth-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 24px;
+            padding: 32px 24px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .auth-header {
+            text-align: center;
+            margin-bottom: 28px;
+        }
+
+        .auth-header h2 {
+            font-size: 24px;
+            color: #0f172a;
+            font-weight: 800;
+        }
+
+        .auth-header p {
+            color: var(--text-light);
+            font-size: 13px;
+            margin-top: 4px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 13px;
+            font-weight: 700;
+            margin-bottom: 6px;
+            color: #1e293b;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 14px 16px;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            font-size: 15px;
+            outline: none;
+            transition: all 0.25s ease;
+            background: #fff;
+            color: var(--secondary);
+        }
+
+        .form-group input:focus, .form-group select:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 4px rgba(239, 68, 68, 0.15);
+        }
+
+        .submit-btn {
+            width: 100%;
+            background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+            color: white;
+            border: none;
+            padding: 16px;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 0 10px 20px -5px rgba(239, 68, 68, 0.4);
+            transition: all 0.2s;
+        }
+
+        .submit-btn:active {
+            transform: scale(0.98);
+        }
+
+        .auth-toggle {
+            text-align: center;
+            margin-top: 24px;
+            font-size: 14px;
+            color: #475569;
+        }
+
+        .auth-toggle span {
+            color: var(--primary);
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        #main-app-wrapper {
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+            padding-bottom: 85px;
+        }
+
+        header {
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            color: white;
+            padding: 24px 20px;
+            border-bottom-left-radius: 28px;
+            border-bottom-right-radius: 28px;
+            box-shadow: var(--shadow);
+        }
+
+        .profile-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .user-meta h4 {
+            font-size: 18px;
+            font-weight: 800;
+            background: linear-gradient(to right, #ff7b7b, #ffb8b8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .user-meta p {
+            font-size: 11px;
+            opacity: 0.7;
+        }
+
+        .logout-btn {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            color: white;
+            padding: 6px 12px;
+            border-radius: 8px;
+            font-size: 11px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .page {
+            display: none;
+            padding: 20px;
+            animation: slideUp 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .panel-card {
+            background: var(--surface);
+            border-radius: 20px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: var(--shadow);
+            border: 1px solid #f1f5f9;
+        }
+
+        .panel-title {
+            font-size: 15px;
+            font-weight: 800;
+            color: var(--secondary);
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .blood-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 6px;
+        }
+
+        .grid-btn {
+            background: #f1f5f9;
+            border: 2px solid transparent;
+            padding: 10px 2px;
+            border-radius: 10px;
+            font-weight: 800;
+            font-size: 13px;
+            cursor: pointer;
+            color: var(--secondary);
+            transition: all 0.2s;
+        }
+
+        .grid-btn.active {
+            background: #fef2f2;
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        .premium-card {
+            background: var(--surface);
+            border-radius: 18px;
+            padding: 18px;
+            margin-bottom: 14px;
+            box-shadow: var(--shadow);
+            border: 1px solid #f1f5f9;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .premium-card::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 4px;
+            background: var(--primary);
+        }
+
+        .card-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+
+        .badge-blood {
+            background: var(--primary);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 8px;
+            font-weight: 900;
+            font-size: 14px;
+        }
+
+        .meta-group {
+            margin-top: 10px;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .meta-item {
+            font-size: 13px;
+            color: var(--text-light);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .meta-item strong {
+            color: var(--secondary);
+        }
+
+        .action-cluster {
+            margin-top: 14px;
+            display: flex;
+            gap: 8px;
+        }
+
+        .btn-call {
+            flex: 1;
+            background: #10b981;
+            color: white;
+            text-align: center;
+            padding: 12px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 13px;
+            display: inline-block;
+        }
+
+        .btn-delete {
+            background: #ef4444;
+            color: white;
+            border: none;
+            padding: 12px 16px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 13px;
+        }
+
+        .bottom-navigation {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            max-width: 450px;
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(12px);
+            display: flex;
+            padding: 12px 0;
+            border-top: 1px solid #e2e8f0;
+            box-shadow: 0 -10px 30px rgba(0,0,0,0.03);
+            z-index: 999;
+        }
+
+        .nav-item {
+            background: none;
+            border: none;
+            color: var(--text-light);
+            font-size: 11px;
+            font-weight: 700;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            flex: 1;
+        }
+
+        .nav-item.active {
+            color: var(--primary);
+        }
+    </style>
+</head>
+<body>
+<div class="app-container">
+
+    <div id="auth-container">
+        <div id="login-box" class="auth-card">
+            <div class="auth-header">
+                <h2>রক্তের বন্ধু</h2>
+                <p>নিরাপদ পোর্টালে লগইন করুন</p>
+            </div>
+            <form onsubmit="handleLogin(event)">
+                <div class="form-group">
+                    <label>মোবাইল নম্বর</label>
+                    <input type="tel" id="loginPhone" placeholder="01XXXXXXXXX" required>
+                </div>
+                <div class="form-group">
+                    <label>পাসওয়ার্ড</label>
+                    <input type="password" id="loginPassword" placeholder="••••••" required>
+                </div>
+                <button type="submit" class="submit-btn">লগইন করুন ⚡</button>
+            </form>
+            <p class="auth-toggle">নতুন অ্যাকাউন্ট? <span onclick="toggleAuthPages('register')">রেজিস্ট্রেশন করুন</span></p>
+        </div>
+
+        <div id="signup-box" class="auth-card" style="display: none;">
+            <div class="auth-header">
+                <h2>মেম্বার রেজিস্ট্রেশন</h2>
+                <p>লাইভ প্যানেলে যোগ দিতে ফর্মটি পূরণ করুন</p>
+            </div>
+            <form onsubmit="handleSignup(event)">
+                <div class="form-group">
+                    <label>সম্পূর্ণ নাম</label>
+                    <input type="text" id="regName" placeholder="যেমন: লিংকন মন্ডল" required>
+                </div>
+                <div class="form-group">
+                    <label>মোবাইল নম্বর</label>
+                    <input type="tel" id="regPhone" placeholder="যেমন: 017XXXXXXXX" required>
+                </div>
+                <div class="form-group">
+                    <label>পাসওয়ার্ড</label>
+                    <input type="password" id="regPassword" placeholder="৪-৬ ডিজিট দিন" required>
+                </div>
+                <button type="submit" class="submit-btn">অ্যাকাউন্ট তৈরি করুন ✨</button>
+            </form>
+            <p class="auth-toggle">ইতিমধ্যে অ্যাকাউন্ট আছে? <span onclick="toggleAuthPages('login')">লগইন করুন</span></p>
+        </div>
+    </div>
+
+    <div id="main-app-wrapper" style="display: none;">
+        <header>
+            <div class="profile-bar">
+                <div class="user-meta">
+                    <h4 id="user-display-name">লোড হচ্ছে...</h4>
+                    <p id="user-display-phone">🟢 অনলাইন মেম্বার প্রোফাইল</p>
+                </div>
+                <button class="logout-btn" onclick="handleLogout()">লগআউট 🚪</button>
+            </div>
+        </header>
+
+        <div id="page-find" class="page active">
+            <div class="panel-card">
+                <div class="form-group" style="margin-bottom: 14px;">
+                    <label>📍 টার্গেট এরিয়া ফিল্টার</label>
+                    <select id="filterLocation" onchange="applyFilters()">
+                        <option value="All">সব এলাকা</option>
+                        <option value="মকসুদপুর">মকসুদপুর</option>
+                        <option value="কাশিয়ানী">কাশিয়ানী</option>
+                        <option value="ভাঙ্গা">ভাঙ্গা</option>
+                        <option value="নগরকান্দা">নগরকান্দা</option>
+                        <option value="বোয়ালমারী">বোয়ালমারী</option>
+                        <option value="রাজৈর">রাজৈর</option>
+                    </select>
+                </div>
+                <label style="display:block; font-size:13px; font-weight:700; color:#1e293b; margin-bottom:8px;">🩸 ব্লাড গ্রুপ ম্যাট্রিক্স</label>
+                <div class="blood-grid">
+                    <button class="grid-btn active" onclick="selectBloodGroup('All', this)">All</button>
+                    <button class="grid-btn" onclick="selectBloodGroup('A+', this)">A+</button>
+                    <button class="grid-btn" onclick="selectBloodGroup('A-', this)">A-</button>
+                    <button class="grid-btn" onclick="selectBloodGroup('B+', this)">B+</button>
+                    <button class="grid-btn" onclick="selectBloodGroup('B-', this)">B-</button>
+                    <button class="grid-btn" onclick="selectBloodGroup('O+', this)">O+</button>
+                    <button class="grid-btn" onclick="selectBloodGroup('O-', this)">O-</button>
+                    <button class="grid-btn" onclick="selectBloodGroup('AB+', this)">AB+</button>
+                    <button class="grid-btn" onclick="selectBloodGroup('AB-', this)">AB-</button>
+                </div>
+            </div>
+
+            <div id="donor-list"></div>
+        </div>
+
+        <div id="page-posts" class="page">
+            <div class="panel-card">
+                <div class="panel-title">🚨 ইমার্জেন্সি ব্লাড রিকোয়েস্ট তৈরি করুন</div>
+                <form id="postForm" onsubmit="createLivePost(event)">
+                    <div style="display: flex; gap: 10px; margin-bottom: 12px;">
+                        <select id="postBlood" style="flex: 1;" required>
+                            <option value="">গ্রুপ...</option>
+                            <option value="A+">A+</option>
+                            <option value="A-">A-</option>
+                            <option value="B+">B+</option>
+                            <option value="B-">B-</option>
+                            <option value="O+">O+</option>
+                            <option value="O-">O-</option>
+                            <option value="AB+">AB+</option>
+                            <option value="AB-">AB-</option>
+                        </select>
+                        <input type="text" id="postBag" placeholder="কত ব্যাগ?" style="flex: 1;" required>
+                    </div>
+                    <div style="display: flex; gap: 10px; margin-bottom: 12px;">
+                        <input type="tel" id="postPhone" placeholder="কন্টাক্ট নম্বর" style="flex: 1;" required>
+                        <select id="postLocation" style="flex: 1;" required>
+                            <option value="">এলাকা...</option>
+                            <option value="মকসুদপুর">মকসুদপুর</option>
+                            <option value="কাশিয়ানী">কাশিয়ানী</option>
+                            <option value="ভাঙ্গা">ভাঙ্গা</option>
+                            <option value="নগরকান্দা">নগরকান্দা</option>
+                            <option value="বোয়ালমারী">বোয়ালমারী</option>
+                            <option value="রাজৈর">রাজৈর</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="submit-btn" style="padding:14px; font-size:14px;">লাইভ বোর্ডে পাবলিশ করুন 📢</button>
+                </form>
+            </div>
+
+            <div id="live-posts-list"></div>
+        </div>
+
+        <div id="page-register" class="page">
+            <div class="panel-card">
+                <div class="panel-title">✍️ রক্তদাতা কার্ড রেজিস্ট্রেশন</div>
+                <form id="donorForm" onsubmit="registerDonor(event)">
+                    <div class="form-group">
+                        <label>আপনার ব্লাড গ্রুপ</label>
+                        <select id="donorBlood" required>
+                            <option value="">নির্বাচন করুন</option>
+                            <option value="A+">A+</option>
+                            <option value="A-">A-</option>
+                            <option value="B+">B+</option>
+                            <option value="B-">B-</option>
+                            <option value="O+">O+</option>
+                            <option value="O-">O-</option>
+                            <option value="AB+">AB+</option>
+                            <option value="AB-">AB-</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>বর্তমান স্থায়ী এলাকা</label>
+                        <select id="donorLocation" required>
+                            <option value="">নির্বাচন করুন</option>
+                            <option value="মকসুদপুর">মকসুদপুর</option>
+                            <option value="কাশিয়ানী">কাশিয়ানী</option>
+                            <option value="ভাঙ্গা">ভাঙ্গা</option>
+                            <option value="নগরকান্দা">নগরকান্দা</option>
+                            <option value="বোয়ালমারী">বোয়ালমারী</option>
+                            <option value="রাজৈর">রাজৈর</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>পাবলিক ফোন নম্বর</label>
+                        <input type="tel" id="donorPhone" placeholder="01XXXXXXXXX" required>
+                    </div>
+                    <div class="form-group">
+                        <label>সর্বশেষ রক্তদানের তারিখ</label>
+                        <input type="date" id="donorLastDate">
+                    </div>
+                    <button type="submit" class="submit-btn">ডাটাবেজে নাম যুক্ত করুন ✅</button>
+                </form>
+            </div>
+        </div>
+
+        <div class="bottom-navigation">
+            <button class="nav-item active" onclick="switchPage('page-find', this)">🔍 ডোনার ডিরেক্টরি</button>
+            <button class="nav-item" onclick="switchPage('page-posts', this)">📢 লাইভ রিকোয়েস্ট</button>
+            <button class="nav-item" onclick="switchPage('page-register', this)">✍️ রক্তদাতা হোন</button>
+        </div>
+    </div>
+
+</div>
+<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-database-compat.js"></script>
+
+<script>
+  const firebaseConfig = {
+    apiKey: "AIzaSyAdqNClPz4zWvO0ygqpgGCc8PGNhziEdT8",
+    authDomain: "blood-donation-society-499a7.firebaseapp.com",
+    projectId: "blood-donation-society-499a7",
+    storageBucket: "blood-donation-society-499a7.appspot.com",
+    messagingSenderId: "879136766205",
+    appId: "1:879136766206:web:542fc9c1d8d3fa981f2694",
+    measurementId: "G-T40MFVJGZE",
+    databaseURL: "https://blood-donation-society-499a7-default-rtdb.firebaseio.com/"
+  };
+
+  firebase.initializeApp(firebaseConfig);
+  const database = firebase.database();
+
+  window.switchPage = function(pageId, btn) {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    const targetPage = document.getElementById(pageId);
+    if(targetPage) targetPage.classList.add('active');
+    
+    document.querySelectorAll('.nav-item').forEach(b => b.classList.remove('active'));
+    if(btn) btn.classList.add('active');
+    
+    if(pageId === 'page-find') {
+      loadDonors();
+    } else if(pageId === 'page-posts') {
+      loadLiveRequests();
+    }
+  };
+
+  window.toggleAuthPages = function(page) {
+    if (page === 'register') {
+      document.getElementById('login-box').style.display = 'none';
+      document.getElementById('signup-box').style.display = 'block';
+    } else {
+      document.getElementById('login-box').style.display = 'block';
+      document.getElementById('signup-box').style.display = 'none';
+    }
+  };
+
+  window.handleSignup = function(event) {
+    event.preventDefault();
+    const name = document.getElementById('regName').value.trim();
+    const phone = document.getElementById('regPhone').value.trim();
+    const password = document.getElementById('regPassword').value;
+
+    const userRef = database.ref('users/' + phone);
+    userRef.once('value').then((snapshot) => {
+      if (snapshot.exists()) {
+        alert("এই মোবাইল নম্বর দিয়ে ইতিমধ্যে আইডি তৈরি করা আছে!");
+      } else {
+        userRef.set({ name, phone, password }).then(() => {
+          alert("🎉 রেজিস্ট্রেশন সফল হয়েছে! এবার লগইন করুন।");
+          toggleAuthPages('login');
+        });
+      }
+    });
+  };
+
+  window.handleLogin = function(event) {
+    event.preventDefault();
+    const phone = document.getElementById('loginPhone').value.trim();
+    const password = document.getElementById('loginPassword').value;
+
+    database.ref('users/' + phone).once('value').then((snapshot) => {
+      if (snapshot.exists()) {
+        const userData = snapshot.val();
+        if(userData.password === password) {
+          localStorage.setItem('loggedInUser', JSON.stringify(userData));
+          setupAppDashboard(userData);
+        } else {
+          alert("❌ পাসওয়ার্ড ভুল হয়েছে!");
+        }
+      } else {
+        alert("এই নম্বরে কোনো আইডি নেই। দয়া করে রেজিস্ট্রেশন করুন।");
+      }
+    });
+  };
+
+  function setupAppDashboard(user) {
+    document.getElementById('user-display-name').innerText = "👋 " + user.name;
+    document.getElementById('user-display-phone').innerText = "📱 ID: " + user.phone;
+    document.getElementById('auth-container').style.display = 'none';
+    document.getElementById('main-app-wrapper').style.display = 'block';
+    switchPage('page-find');
+  }
+
+  window.handleLogout = function() {
+    localStorage.removeItem('loggedInUser');
+    document.getElementById('auth-container').style.display = 'block';
+    document.getElementById('main-app-wrapper').style.display = 'none';
+    toggleAuthPages('login');
+  };
+
+  window.registerDonor = function(event) {
+    event.preventDefault();
+    const user = JSON.parse(localStorage.getItem('loggedInUser'));
+    
+    const blood = document.getElementById('donorBlood').value;
+    const location = document.getElementById('donorLocation').value;
+    const phone = document.getElementById('donorPhone').value.trim();
+    const lastDonate = document.getElementById('donorLastDate').value || "জানানো হয়নি";
+
+    database.ref('donors/' + phone).set({
+      name: user.name,
+      blood, location, phone, lastDonate
+    }).then(() => {
+      alert("✅ রক্তদাতা ডাটাবেজে আপনার স্মার্ট কার্ড যুক্ত হয়েছে!");
+      document.getElementById('donorForm').reset();
+      switchPage('page-find');
+    });
+  };
+
+  window.loadDonors = function() {
+    const listDiv = document.getElementById('donor-list');
+    listDiv.innerHTML = '<p style="text-align:center; padding:30px; color:var(--text-light);">রক্তদাতাদের ডাটাবেজ অনুসন্ধান করা হচ্ছে...</p>';
+
+    database.ref('donors').once('value').then((snapshot) => {
+      listDiv.innerHTML = '';
+      if (snapshot.exists()) {
+        const donors = snapshot.val();
+        const loc = document.getElementById('filterLocation').value;
+        const activeBtn = document.querySelector('.grid-btn.active');
+        const bld = activeBtn ? activeBtn.innerText : 'All';
+
+        let count = 0;
+        for(let key in donors) {
+          const d = donors[key];
+          if(loc !== 'All' && d.location !== loc) continue;
+          if(bld !== 'All' && d.blood !== bld) continue;
+
+          count++;
+          const card = document.createElement('div');
+          card.className = 'premium-card';
+          card.innerHTML = `
+            <div class="card-top">
+                <div>
+                    <h3 style="font-size:16px; font-weight:800; color:var(--secondary);">${d.name}</h3>
+                    <div class="meta-group">
+                        <div class="meta-item">📍 এলাকা: <strong>${d.location}</strong></div>
+                        <div class="meta-item">📅 শেষ রক্তদান: <strong>${d.lastDonate}</strong></div>
+                    </div>
+                </div>
+                <span class="badge-blood">${d.blood}</span>
+            </div>
+            <div class="action-cluster">
+                <a href="tel:${d.phone}" class="btn-call">📞 সরাসরি কল করুন</a>
+            </div>
+          `;
+          listDiv.appendChild(card);
+        }
+        if(count === 0) listDiv.innerHTML = '<p style="text-align:center; padding:30px; color:var(--text-light);">এই ফিল্টারে কোনো রক্তদাতা পাওয়া যায়নি।</p>';
+      } else {
+        listDiv.innerHTML = '<p style="text-align:center; padding:30px; color:var(--text-light);">ডাটাবেজে কোনো রক্তদাতা এনরোল করেনি।</p>';
+      }
+    });
+  };
+
+  window.createLivePost = function(event) {
+    event.preventDefault();
+    const user = JSON.parse(localStorage.getItem('loggedInUser'));
+    
+    const blood = document.getElementById('postBlood').value;
+    const bag = document.getElementById('postBag').value;
+    const phone = document.getElementById('postPhone').value.trim();
+    const location = document.getElementById('postLocation').value;
+
+    const newPostRef = database.ref('posts').push();
+    newPostRef.set({
+      blood, bag, phone, location,
+      postedBy: user.phone,
+      creatorName: user.name,
+      time: new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})
+    }).then(() => {
+      alert("📢 আপনার রক্তের আবেদনটি লাইভ বোর্ডে পোস্ট হয়েছে!");
+      document.getElementById('postForm').reset();
+      switchPage('page-posts');
+    });
+  };
+
+  window.loadLiveRequests = function() {
+    const listDiv = document.getElementById('live-posts-list');
+    listDiv.innerHTML = '<p style="text-align:center; padding:30px; color:var(--text-light);">লাইভ পোস্ট বোর্ড সিঙ্ক হচ্ছে...</p>';
+    
+    const currentUser = JSON.parse(localStorage.getItem('loggedInUser'));
+
+    database.ref('posts').once('value').then((snapshot) => {
+      listDiv.innerHTML = '';
+      if (snapshot.exists()) {
+        const posts = snapshot.val();
+        const keys = Object.keys(posts).reverse();
+
+        keys.forEach((key) => {
+          const p = posts[key];
+          const card = document.createElement('div');
+          card.className = 'premium-card';
+          card.style.borderLeft = "4px solid #ef4444";
+          
+          let deleteButtonHtml = '';
+          if (currentUser && p.postedBy === currentUser.phone) {
+              deleteButtonHtml = `<button class="btn-delete" onclick="deleteLivePost('${key}')">ডিলিট 🗑️</button>`;
+          }
+
+          card.innerHTML = `
+            <div class="card-top">
+                <div>
+                    <h3 style="font-size:15px; font-weight:800; color:var(--secondary);">আবেদনকারী: ${p.creatorName || 'ইউজার'}</h3>
+                    <div class="meta-group">
+                        <div class="meta-item">🩸 প্রয়োজন: <strong style="color:#ef4444">${p.bag}</strong></div>
+                        <div class="meta-item">📍 স্থান: <strong>${p.location}</strong></div>
+                        <div class="meta-item">🕒 সময়: <strong>${p.time}</strong></div>
+                    </div>
+                </div>
+                <span class="badge-blood" style="background:#fee2e2; color:#ef4444;">${p.blood}</span>
+            </div>
+            <div class="action-cluster">
+                <a href="tel:${p.phone}" class="btn-call">📞 কল করুন</a>
+                ${deleteButtonHtml}
+            </div>
+          `;
+          listDiv.appendChild(card);
+        });
+      } else {
+        listDiv.innerHTML = '<p style="text-align:center; padding:30px; color:var(--text-light);">বর্তমানে লাইভ বোর্ডে কোনো পোস্ট নেই।</p>';
+      }
+    });
+  };
+
+  window.deleteLivePost = function(postId) {
+      if(confirm("আপনার কি রক্তের প্রয়োজন মিটে গেছে? তাহলে পোস্টটি ডিলিট করতে পারেন।")) {
+          database.ref('posts/' + postId).remove().then(() => {
+              alert("🗑️ পোস্টটি সফলভাবে লাইভ বোর্ড থেকে মুছে ফেলা হয়েছে।");
+              loadLiveRequests();
+          });
+      }
+  };
+  window.applyFilters = function() {
+    loadDonors();
+  };
+
+  window.selectBloodGroup = function(group, btn) {
+    document.querySelectorAll('.grid-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    applyFilters();
+  };
+
+  window.onload = function() {
+    const cachedUser = localStorage.getItem('loggedInUser');
+    if(cachedUser) {
+      setupAppDashboard(JSON.parse(cachedUser));
+    } else {
+      handleLogout();
+    }
+  };
+</script>
+</body>
+</html>
